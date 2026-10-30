@@ -56,7 +56,15 @@ const catalog={
 ["iPhone 11 Pro Max",["64 Go","256 Go","512 Go"],["Gris sidéral","Argent","Or","Vert nuit"],175],
 ["iPhone 11 Pro",["64 Go","256 Go","512 Go"],["Gris sidéral","Argent","Or","Vert nuit"],150],
 ["iPhone 11",["64 Go","128 Go","256 Go"],["Noir","Blanc","Vert","Jaune","Violet","Rouge"],125],
-["iPhone SE (2022)",["64 Go","128 Go","256 Go"],["Minuit","Lumière stellaire","Rouge"],95]
+["iPhone SE (2022)",["64 Go","128 Go","256 Go"],["Minuit","Lumière stellaire","Rouge"],95],
+["iPhone SE (2020)",["64 Go","128 Go","256 Go"],["Noir","Blanc","Rouge"],65],
+["iPhone XS Max",["64 Go","256 Go","512 Go"],["Gris sidéral","Argent","Or"],95],
+["iPhone XS",["64 Go","256 Go","512 Go"],["Gris sidéral","Argent","Or"],80],
+["iPhone XR",["64 Go","128 Go","256 Go"],["Noir","Blanc","Bleu","Jaune","Corail","Rouge"],75],
+["iPhone X",["64 Go","256 Go"],["Gris sidéral","Argent"],55],
+["iPhone 8 Plus",["64 Go","128 Go","256 Go"],["Gris sidéral","Argent","Or","Rouge"],40],
+["iPhone 8",["64 Go","128 Go","256 Go"],["Gris sidéral","Argent","Or","Rouge"],30],
+["iPhone 7",["32 Go","128 Go","256 Go"],["Noir","Argent","Or","Or rose","Rouge"],20]
 ],
 "Samsung":[
 ["Galaxy S25 Ultra",["256 Go","512 Go","1 To"],["Titane noir","Titane gris","Titane argent","Titane bleu"],690],
@@ -72,7 +80,15 @@ const catalog={
 ["Galaxy S22",["128 Go","256 Go"],["Noir","Blanc","Vert","Rose"],160],
 ["Galaxy A55",["128 Go","256 Go"],["Noir","Bleu","Jaune","Lilas"],145],
 ["Galaxy A54",["128 Go","256 Go"],["Noir","Blanc","Vert","Violet"],105],
-["Galaxy A34",["128 Go","256 Go"],["Noir","Argent","Vert","Violet"],75]
+["Galaxy A34",["128 Go","256 Go"],["Noir","Argent","Vert","Violet"],75],
+["Galaxy S24 FE",["128 Go","256 Go"],["Graphite","Gris","Bleu","Menthe"],220],
+["Galaxy S23 FE",["128 Go","256 Go"],["Graphite","Crème","Menthe","Violet"],170],
+["Galaxy S22+",["128 Go","256 Go"],["Noir","Blanc","Vert","Rose"],185],
+["Galaxy S21 Ultra",["128 Go","256 Go","512 Go"],["Noir","Argent"],190],
+["Galaxy S21",["128 Go","256 Go"],["Gris","Blanc","Violet","Rose"],95],
+["Galaxy A35",["128 Go","256 Go"],["Noir","Bleu","Lilas","Jaune"],95],
+["Galaxy A25",["128 Go","256 Go"],["Noir","Bleu","Jaune"],70],
+["Galaxy A15",["128 Go","256 Go"],["Noir","Bleu","Jaune"],55]
 ],
 "Google":[["Pixel 9 Pro XL",["128 Go","256 Go","512 Go"],["Noir","Porcelaine","Noisette","Rose"],520],["Pixel 9 Pro",["128 Go","256 Go","512 Go"],["Noir","Porcelaine","Noisette","Rose"],470],["Pixel 9",["128 Go","256 Go"],["Noir","Porcelaine","Vert","Rose"],340],["Pixel 8 Pro",["128 Go","256 Go","512 Go"],["Noir","Porcelaine","Bleu"],290],["Pixel 8",["128 Go","256 Go"],["Noir","Noisette","Rose"],220],["Pixel 7",["128 Go","256 Go"],["Noir","Blanc","Vert"],140]],
 "Xiaomi":[["Xiaomi 14 Ultra",["512 Go"],["Noir","Blanc"],390],["Xiaomi 14",["256 Go","512 Go"],["Noir","Blanc","Vert"],280],["Redmi Note 13 Pro+",["256 Go","512 Go"],["Noir","Blanc","Violet"],125],["Redmi Note 13 Pro",["128 Go","256 Go"],["Noir","Bleu","Violet"],95]],
@@ -86,8 +102,8 @@ const catalog={
 const steps=[["Marque","Choisissez la marque de votre téléphone"],["Modèle","Choisissez le modèle"],["Capacité","Choisissez la capacité de stockage"],["Couleur","Choisissez la couleur"],["État général","Quel est l’état général ?"],["Batterie","Quel est l’état de la batterie ?"],["Écran","Quel est l’état de l’écran ?"],["Dos & châssis","Quel est l’état du dos et du châssis ?"],["Caméras","Les caméras fonctionnent-elles ?"],["Récapitulatif","Votre estimation indicative"]];
 const state={step:0,brand:"",model:"",capacity:"",color:"",condition:"",battery:"",screen:"",back:"",camera:"",other:"",account:"Déconnecté",imei:"Oui",query:""};
 const brands=[["Apple",""],["Samsung","S"],["Xiaomi","mi"],["Google","G"],["Huawei","H"],["Oppo","O"],["OnePlus","1+"],["Motorola","M"],["Sony","SONY"],["Autres","•••"]];
-const conditions=[["Comme neuf","Aucune trace d’usure visible",1],["Très bon état","Micro-rayures très discrètes",.91],["Bon état","Traces d’usage légères",.79],["État correct","Rayures et petits chocs",.64],["Mauvais état","Chocs marqués, usure importante",.43],["Hors service","Ne s’allume pas ou ne fonctionne pas",.15]];
-const batteryOptions=[["> 85 %","Bonne autonomie",1],["70–85 %","Usure modérée",.91],["50–69 %","Autonomie réduite",.76],["Moins de 50 %","Remplacement probablement nécessaire",.55]];
+const conditions=[["Neuf scellé","Jamais utilisé, emballage scellé",1.08],["Comme neuf","Aucune trace d’usure visible",1],["Excellent état","Quasiment aucune trace",.96],["Très bon état","Micro-rayures très discrètes",.91],["Bon état","Traces d’usage légères",.79],["État correct","Rayures et petits chocs",.64],["Mauvais état","Chocs marqués, usure importante",.43],["Hors service","Ne s’allume pas ou ne fonctionne pas",.15]];
+const batteryOptions=[["95–100 %","Batterie excellente ou remplacée récemment",1],["90–94 %","Très bonne autonomie",.97],["85–89 %","Bonne autonomie",.94],["80–84 %","Usure légère",.91],["70–79 %","Usure modérée",.86],["60–69 %","Autonomie réduite",.78],["50–59 %","Autonomie faible",.68],["Moins de 50 %","Remplacement probablement nécessaire",.55],["Inconnue / non vérifiée","État de batterie à contrôler",.8]];
 const screenOptions=[["Intact","Aucune fissure",1],["Rayures","Écran fonctionnel, rayures visibles",.88],["Écran cassé mais fonctionnel","Fissures, tactile fonctionnel",.52],["Écran cassé et inutilisable","Affichage ou tactile défectueux",.32]];
 const backOptions=[["Intact","Dos et châssis en bon état",1],["Rayures","Traces superficielles",.92],["Dos cassé","Verre arrière fissuré",.73],["Châssis tordu / gros choc","Déformation ou choc important",.55]];
 const functionOptions=[["Fonctionnelles","Tout fonctionne normalement",1],["Défaut mineur","Une fonction présente un défaut",.7],["Défectueuses","Réparation potentiellement nécessaire",.4]];
