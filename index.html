@@ -127,8 +127,43 @@ function phoneCard(){return '<div class="device-card"><div class="device-illustr
 function resultPrices(){
  const m=modelInfo(),cap=state.capacity||m[1][0];
  const storage=cap.includes("1 To")?1.18:cap.includes("512")?1.10:cap.includes("256")?1.05:cap.includes("128")?1:cap.includes("64")?.90:1;
- // Référence catalogue = estimation de revente; décote prudente car ce n'est pas un flux de prix en direct.
- const marketReference=Math.max(0,(Number(m[3])||70)*storage);
+ // Prix maximum de reprise observés chez LeReconditionneur, relevés le 29/10/2026.
+ // Ils servent de référence marché; l'offre Detra reste inférieure pour préserver les frais et le bénéfice.
+ const referenceBuyback={
+ "iPhone 18 Pro Max":{"256 Go":987,"512 Go":1091,"1 To":1206,"2 To":1332},
+ "iPhone 18 Pro":{"256 Go":894,"512 Go":989,"1 To":1093,"2 To":1208},
+ "iPhone 17 Pro Max":{"256 Go":896,"512 Go":929,"1 To":1016,"2 To":1027},
+ "iPhone 17 Pro":{"256 Go":782,"512 Go":878,"1 To":986},
+ "iPhone 17":{"256 Go":577,"512 Go":643},
+ "iPhone 17e":{"256 Go":470,"512 Go":528},
+ "iPhone Air":{"256 Go":542,"512 Go":628,"1 To":758},
+ "iPhone 16 Pro Max":{"256 Go":687,"512 Go":752,"1 To":766},
+ "iPhone 16 Pro":{"128 Go":535,"256 Go":586,"512 Go":659,"1 To":700},
+ "iPhone 16 Plus":{"128 Go":458,"256 Go":510,"512 Go":583},
+ "iPhone 16":{"128 Go":450,"256 Go":478,"512 Go":538},
+ "iPhone 16e":{"128 Go":317,"256 Go":356,"512 Go":398},
+ "iPhone 15 Pro Max":{"256 Go":500,"512 Go":525,"1 To":546},
+ "iPhone 15 Pro":{"128 Go":446,"256 Go":472,"512 Go":485,"1 To":555},
+ "iPhone 15 Plus":{"128 Go":347,"256 Go":380,"512 Go":458},
+ "iPhone 15":{"128 Go":318,"256 Go":364,"512 Go":431},
+ "iPhone 14 Pro Max":{"128 Go":383,"256 Go":396,"512 Go":438,"1 To":477},
+ "iPhone 14 Pro":{"128 Go":312,"256 Go":338,"512 Go":360,"1 To":406},
+ "iPhone 14 Plus":{"128 Go":248,"256 Go":263,"512 Go":317},
+ "iPhone 14":{"128 Go":220,"256 Go":243,"512 Go":303},
+ "iPhone 13 Pro Max":{"128 Go":286,"256 Go":300,"512 Go":317,"1 To":383},
+ "iPhone 13 Pro":{"128 Go":232,"256 Go":256,"512 Go":280,"1 To":350},
+ "iPhone 13":{"128 Go":163,"256 Go":191,"512 Go":210},
+ "iPhone 13 mini":{"128 Go":152,"256 Go":182,"512 Go":230},
+ "iPhone 12 Pro Max":{"128 Go":177,"256 Go":197,"512 Go":227},
+ "iPhone 12 Pro":{"128 Go":148,"256 Go":160,"512 Go":188},
+ "iPhone 12":{"64 Go":91,"128 Go":112,"256 Go":135},
+ "iPhone 12 mini":{"64 Go":79,"128 Go":88,"256 Go":106},
+ "iPhone 11 Pro Max":{"64 Go":86,"256 Go":100,"512 Go":116},
+ "iPhone 11 Pro":{"64 Go":86,"256 Go":69,"512 Go":92},
+ "iPhone 11":{"64 Go":61,"128 Go":86,"256 Go":66}
+ };
+ const exactReference=state.brand==="Apple"&&referenceBuyback[state.model]?referenceBuyback[state.model][cap]:null;
+ const marketReference=Math.max(0,Number(exactReference)||((Number(m[3])||70)*storage));
  const grades={"Neuf scellé":1.02,"Comme neuf":1,"Excellent état":.96,"Très bon état":.91,"Bon état":.82,"État correct":.68,"Mauvais état":.48,"Hors service":.12};
  const batteries={"95–100 %":1,"90–94 %":.98,"85–89 %":.95,"80–84 %":.91,"70–79 %":.82,"60–69 %":.70,"50–59 %":.58,"Moins de 50 %":.42,"Inconnue / non vérifiée":.85};
  const backs={"Intact":1,"Rayures":.98,"Dos cassé":.62,"Châssis tordu / gros choc":.35};
