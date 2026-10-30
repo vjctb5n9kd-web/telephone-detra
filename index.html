@@ -1,307 +1,43 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#050914">
-<meta name="description" content="TELEPHONE DETRA : estimez la valeur de rachat de votre smartphone.">
-<title>TELEPHONE DETRA — Le rachat nouvelle génération</title>
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#07111f"><meta name="description" content="TELEPHONE DETRA : reprise, réparation et revente de smartphones."><title>TELEPHONE DETRA — Reprise smartphone</title>
 <style>
-:root{--bg:#050914;--panel:#0b1425;--blue:#087cff;--cyan:#36d8ff;--text:#f5f9ff;--muted:#9aaac1;--line:#203b5d}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}
-button,input,select{font:inherit}
-button{cursor:pointer}
-a{color:inherit;text-decoration:none}
-header{height:76px;padding:0 6%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #183454;background:#060b16}
-.logo{font-weight:900;font-size:22px;letter-spacing:-1px;font-style:italic}
-.logo span{display:block;color:var(--cyan);font-size:27px}
-.nav{display:flex;align-items:center;gap:24px;font-size:14px}
-.btn{display:inline-flex;justify-content:center;align-items:center;gap:9px;padding:15px 23px;border:1px solid #55dfff;border-radius:10px;background:linear-gradient(120deg,#168dff,#0752e8);color:white;font-weight:800;box-shadow:0 0 25px #087cff55;transition:.2s}
-.btn:hover{transform:translateY(-2px);box-shadow:0 0 32px #087cff88}
-.btn.secondary{background:#0b1728;box-shadow:none}
-.hero{position:relative;overflow:hidden;min-height:590px;padding:85px 7%;display:flex;align-items:center;background:radial-gradient(ellipse at 78% 40%,#064eaa66,transparent 37%),radial-gradient(ellipse at 80% 90%,#00bfff22,transparent 32%),linear-gradient(135deg,#050914,#08172c 65%,#050914)}
-.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#050914 5%,transparent 90%);pointer-events:none}
-.hero-content{position:relative;z-index:1;max-width:690px}
-.eyebrow{color:var(--cyan);font-weight:bold;letter-spacing:3px;font-size:12px;text-transform:uppercase}
-h1{font-size:clamp(43px,7vw,78px);line-height:.99;letter-spacing:-3px;margin:20px 0}
-h1 span{color:var(--cyan);text-shadow:0 0 28px #008cff55}
-.hero p{max-width:510px;color:#c3d1e4;font-size:17px;line-height:1.8}
-.hero-buttons{display:flex;gap:13px;flex-wrap:wrap;margin-top:30px}
-.phone-art{position:absolute;right:10%;top:50%;transform:translateY(-50%) rotate(-8deg);width:205px;height:390px;border:5px solid #a8c6e9;border-radius:35px;background:linear-gradient(145deg,#17395f,#020611 65%);box-shadow:0 0 65px #087cff66,inset 0 0 22px #5bdcff22}
-.phone-art:before{content:"";position:absolute;top:9px;left:50%;transform:translateX(-50%);width:65px;height:17px;border-radius:20px;background:#02040a}
-.phone-art:after{content:"D";position:absolute;inset:0;display:grid;place-items:center;font-size:155px;font-weight:900;font-style:italic;color:#5bdcff;background:radial-gradient(circle at 40% 45%,#087cff77,transparent 60%);border-radius:29px;text-shadow:0 0 40px #087cff}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:25px 7%;border-bottom:1px solid var(--line)}
-.stat{text-align:center;padding:12px}.stat strong{display:block;color:var(--cyan);font-size:20px}.stat span{display:block;color:var(--muted);font-size:12px;margin-top:7px}
-section{padding:70px 7%}
-.section-title{text-align:center;margin-bottom:35px}
-.section-title h2{font-size:clamp(27px,4vw,40px);margin:10px 0}
-.section-title p{color:var(--muted);line-height:1.7}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.card{padding:25px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(145deg,#0d1b30,#080f1d)}
-.card .icon{font-size:29px}.card h3{margin:17px 0 10px}.card p{font-size:14px;line-height:1.7;color:var(--muted)}
-#estimate{background:linear-gradient(180deg,#071020,#050914)}
-.estimator{max-width:850px;margin:auto;padding:clamp(18px,4vw,36px);border:1px solid #1764a5;border-radius:18px;background:linear-gradient(145deg,#0b1729,#070d19);box-shadow:0 0 45px #006eff18}
-.progress{height:5px;background:#182b43;border-radius:5px;overflow:hidden;margin:20px 0 28px}.progress div{height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--cyan));transition:.2s}
-.step{display:none}.step.active{display:block}
-.step h3{font-size:22px;margin:0 0 20px}
-.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.field label{display:block;font-size:13px;color:#b8cce4;margin-bottom:8px}
-.field select,.field input{width:100%;padding:14px;background:#071020;border:1px solid #2a4667;border-radius:9px;color:white;outline:none}
-.field select:focus,.field input:focus{border-color:var(--cyan)}
-.checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.check{display:flex;gap:10px;align-items:flex-start;background:#0b1a2e;border:1px solid #213b5a;padding:13px;border-radius:9px;font-size:13px;line-height:1.4}
-.check input{accent-color:var(--blue);margin-top:2px}
-.step-buttons{display:flex;justify-content:space-between;gap:12px;margin-top:25px}
-.note{font-size:12px;line-height:1.6;color:var(--muted)}
-.result{display:none;text-align:center}
-.price{font-size:clamp(38px,8vw,60px);font-weight:900;color:var(--cyan);margin:18px 0;text-shadow:0 0 25px #087cff55}
-.summary{text-align:left;background:#071020;border:1px solid var(--line);padding:18px;border-radius:12px;line-height:1.9;font-size:14px;white-space:pre-line;margin:20px 0}
-footer{border-top:1px solid var(--line);padding:35px 7%;text-align:center;color:var(--muted);font-size:13px;line-height:1.9}
-footer strong{color:white}
-@media(max-width:760px){.nav a:not(.btn){display:none}.nav{gap:0}.nav .btn{padding:11px;font-size:12px}.hero{min-height:600px;padding:65px 6%}.hero-content{max-width:100%}.phone-art{right:-85px;top:65%;width:140px;height:270px;opacity:.32}.hero:after{background:linear-gradient(90deg,#050914 10%,#05091499 100%)}.hero p{font-size:15px}.stats{padding:18px 3%;gap:0}.stat strong{font-size:16px}.stat span{font-size:10px}.cards{grid-template-columns:1fr}.cards .card{padding:20px}section{padding:55px 5%}.fields{grid-template-columns:1fr}.checks{grid-template-columns:1fr}.logo{font-size:17px}.logo span{font-size:21px}}
-</style>
-</head>
-<body>
-<header>
-<a class="logo" href="#home">TELEPHONE <span>DETRA</span></a>
-<nav class="nav"><a href="#home">Accueil</a><a href="#comment">Comment ça marche</a><a class="btn" href="#estimate">Estimer mon téléphone ↗</a></nav>
-</header>
-
+:root{--bg:#07111f;--panel:#0d1c2e;--panel2:#12263d;--line:#233d57;--text:#f5f8fc;--muted:#a6b6c9;--blue:#397dff;--cyan:#53e0d1;--gold:#ffd080}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,Arial,sans-serif}button,input,select{font:inherit}button,a{cursor:pointer}a{color:inherit;text-decoration:none}.wrap{width:min(1120px,92%);margin:auto}.top{position:sticky;top:0;z-index:10;background:#07111fee;backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.nav{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:18px}.logo{font-weight:950;letter-spacing:-1px;font-size:19px;line-height:1}.logo b{display:block;color:var(--cyan);font-size:25px;letter-spacing:3px}.links{display:flex;gap:5px;align-items:center;flex-wrap:wrap}.links button{border:0;background:transparent;color:var(--muted);padding:10px;border-radius:10px}.links button.active,.links button:hover{background:var(--panel2);color:white}.primary,.secondary{border:1px solid transparent;border-radius:12px;padding:12px 17px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:8px}.primary{background:linear-gradient(120deg,var(--blue),#2456d8);color:white;box-shadow:0 8px 28px #397dff25}.secondary{background:var(--panel2);border-color:var(--line);color:white}.page{display:none;min-height:65vh}.page.active{display:block}.hero{padding:75px 0;background:radial-gradient(ellipse at 80% 15%,#1b66a54d,transparent 42%),linear-gradient(145deg,#081321,#0b1e32 58%,#07111f)}.heroGrid{display:grid;grid-template-columns:1.15fr .85fr;gap:35px;align-items:center}.eyebrow{color:var(--cyan);font-weight:850;font-size:12px;letter-spacing:2.5px;text-transform:uppercase}.hero h1{font-size:clamp(42px,6.5vw,75px);line-height:.98;letter-spacing:-3px;margin:18px 0}.hero h1 span{color:var(--cyan)}.hero p{color:#c2d0df;max-width:600px;font-size:18px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}.visual{min-height:320px;border:1px solid #295079;border-radius:28px;background:linear-gradient(145deg,#183655,#0b1524);display:grid;place-items:center;position:relative;overflow:hidden}.phone{height:250px;width:130px;border:5px solid #a5bdd8;border-radius:28px;background:radial-gradient(circle at 50% 40%,#2f8dff,#101c34 65%);display:grid;place-items:center;font-size:76px;font-weight:950;color:#c5fff7;transform:rotate(8deg);box-shadow:0 0 50px #397dff55}.tag{position:absolute;bottom:18px;left:18px;background:#07111fee;border:1px solid var(--line);padding:12px 15px;border-radius:14px;font-size:13px}.tag b{display:block;color:var(--cyan)}.stats,.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:24px 0}.stat,.card,.box{border:1px solid var(--line);background:var(--panel);border-radius:17px;padding:22px}.stat strong{display:block;color:var(--cyan);font-size:18px}.stat span,.small{color:var(--muted);font-size:12px}.content{padding:54px 0 70px}.heading{margin-bottom:25px}.heading h2{font-size:clamp(30px,4vw,43px);letter-spacing:-1.3px;margin:8px 0}.heading p,.card p{color:var(--muted)}.card .icon{font-size:28px}.card h3{margin:10px 0}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.field label{display:block;color:#c5d2e2;font-size:13px;font-weight:750;margin-bottom:7px}.field input,.field select{width:100%;padding:13px;background:#071321;color:white;border:1px solid #29445f;border-radius:10px}.field input:focus,.field select:focus{outline:2px solid #397dff66}.notice{border:1px solid #66512d;background:#2b2113;color:#ffe0a6;border-radius:13px;padding:14px 16px;font-size:13px;margin:18px 0}.formActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.results{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}.metric{background:#071321;border:1px solid var(--line);padding:17px;border-radius:13px}.metric span{display:block;color:var(--muted);font-size:12px}.metric strong{font-size:24px;display:block;margin-top:5px}.metric:nth-child(1) strong{color:var(--gold)}.metric:nth-child(3) strong{color:var(--cyan)}.hidden{display:none!important}.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:14px}table{border-collapse:collapse;width:100%;min-width:600px;background:var(--panel)}th,td{text-align:left;padding:13px 15px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-size:12px;text-transform:uppercase}td strong{color:var(--cyan)}.faq details{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;margin:10px 0}.faq summary{font-weight:800;cursor:pointer}.faq p{color:var(--muted)}footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:13px}.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+@media(max-width:760px){.nav{align-items:flex-start;padding:14px 0;flex-direction:column}.links{width:100%;display:grid;grid-template-columns:repeat(3,1fr)}.links button{padding:9px 3px;font-size:12px}.links .primary{grid-column:span 3}.hero{padding:48px 0}.heroGrid{grid-template-columns:1fr}.visual{min-height:235px}.phone{height:185px;width:102px}.hero h1{letter-spacing:-2px}.stats,.grid3,.formgrid,.results{grid-template-columns:1fr}.stat{padding:16px}.foot{display:block}}
+</style></head><body>
+<header class="top"><div class="wrap nav"><a class="logo" href="#accueil" data-page="accueil">TELEPHONE <b>DETRA</b></a><nav class="links" aria-label="Navigation principale"><button data-page="accueil" class="active">Accueil</button><button data-page="estimation">Estimation</button><button data-page="fonctionnement">Fonctionnement</button><button data-page="catalogue">Modèles & prix</button><button data-page="faq">FAQ</button><button class="primary" data-page="estimation">Estimer ↗</button></nav></div></header>
 <main>
-<section class="hero" id="home">
-<div class="hero-content">
-<div class="eyebrow">◆ Le rachat nouvelle génération</div>
-<h1>TON ANCIEN<br>TÉLÉPHONE.<br><span>UN NOUVEAU DÉPART.</span></h1>
-<p>Ton smartphone mérite encore de la valeur. Décris son état, découvre une estimation indicative et contacte TELEPHONE DETRA pour confirmer ton offre.</p>
-<div class="hero-buttons"><a class="btn" href="#estimate">ESTIMER MON TÉLÉPHONE →</a><a class="btn secondary" href="#comment">Comment ça marche ?</a></div>
-</div>
-<div class="phone-art" aria-hidden="true"></div>
-</section>
-
-<div class="stats">
-<div class="stat"><strong>⚡ RAPIDE</strong><span>Quelques étapes simples</span></div>
-<div class="stat"><strong>◆ TRANSPARENT</strong><span>Un récapitulatif clair</span></div>
-<div class="stat"><strong>◈ PERSONNALISÉ</strong><span>Selon l'état déclaré</span></div>
-</div>
-
-<section id="comment">
-<div class="section-title"><div class="eyebrow">Simple. Clair. Efficace.</div><h2>COMMENT ÇA MARCHE ?</h2><p>Trois étapes pour connaître la valeur indicative de ton smartphone.</p></div>
-<div class="cards">
-<div class="card"><div class="icon">📱</div><h3>01 — Décris ton téléphone</h3><p>Choisis la marque, le modèle, le stockage et renseigne les défauts connus.</p></div>
-<div class="card"><div class="icon">⚡</div><h3>02 — Découvre l'estimation</h3><p>Le calculateur utilise ses tarifs de référence et tes réponses pour donner une fourchette indicative.</p></div>
-<div class="card"><div class="icon">💬</div><h3>03 — Confirme ton offre</h3><p>Envoie le récapitulatif à TELEPHONE DETRA sur Snapchat pour faire vérifier ton téléphone et confirmer le prix.</p></div>
-</div>
-</section>
-
-<section id="estimate">
-<div class="section-title"><div class="eyebrow">Ton estimation commence ici</div><h2>ESTIME TON TÉLÉPHONE</h2><p>Réponds avec précision pour obtenir une estimation indicative.</p></div>
-<div class="estimator">
-<div id="formArea">
-<div><span id="stepLabel">Étape 1 sur 4</span><span style="float:right;color:var(--muted)" id="stepName">Ton appareil</span></div>
-<div class="progress"><div id="progressBar"></div></div>
-
-<div class="step active" data-step="0">
-<h3>Quel téléphone souhaites-tu vendre ?</h3>
-<div class="fields">
-<div class="field"><label for="brand">Marque</label><select id="brand"><option value="Apple">Apple</option><option value="Samsung">Samsung</option><option value="Google">Google Pixel</option><option value="Xiaomi">Xiaomi</option><option value="Huawei">Huawei</option></select></div>
-<div class="field"><label for="model">Modèle</label><select id="model"></select></div>
-<div class="field"><label for="storage">Stockage</label><select id="storage"></select></div>
-<div class="field"><label for="color">Couleur (facultatif)</label><select id="color"><option>Noir</option><option>Blanc</option><option>Bleu</option><option>Violet</option><option>Vert</option><option>Rose</option><option>Autre</option></select></div>
-</div>
-<p class="note">La liste contient une sélection de modèles de démonstration. Les références et prix doivent être complétés avant utilisation commerciale.</p>
-</div>
-
-<div class="step" data-step="1">
-<h3>Dans quel état est-il ?</h3>
-<div class="fields">
-<div class="field"><label for="condition">État général</label><select id="condition"><option value="1">Comme neuf</option><option value=".88">Très bon état</option><option value=".72">Bon état</option><option value=".50">État moyen</option><option value=".25">Mauvais état</option></select></div>
-<div class="field"><label for="battery">Batterie (%) — si connue</label><input id="battery" type="number" min="1" max="100" placeholder="Ex. 87"></div>
-<div class="field"><label for="screen">Écran</label><select id="screen"><option value="0">Intact</option><option value="-.08">Rayures</option><option value="-.22">Fissuré</option><option value="-.40">Cassé / tactile défectueux</option></select></div>
-<div class="field"><label for="back">Dos et châssis</label><select id="back"><option value="0">Bon état</option><option value="-.04">Rayures</option><option value="-.12">Fissuré / enfoncé</option><option value="-.25">Fortement endommagé</option></select></div>
-</div>
-</div>
-
-<div class="step" data-step="2">
-<h3>Vérifions les fonctionnalités</h3>
-<div class="checks">
-<label class="check"><input type="checkbox" id="camera"> Caméra défectueuse</label>
-<label class="check"><input type="checkbox" id="face"> Face ID / Touch ID défectueux</label>
-<label class="check"><input type="checkbox" id="sound"> Son, boutons ou micro défectueux</label>
-<label class="check"><input type="checkbox" id="charge"> Charge ou connectique défectueuse</label>
-<label class="check"><input type="checkbox" id="network"> Wi-Fi, Bluetooth ou réseau défectueux</label>
-<label class="check"><input type="checkbox" id="water"> Traces de liquide ou oxydation</label>
-<label class="check"><input type="checkbox" id="repair"> Réparation ou pièce remplacée</label>
-<label class="check"><input type="checkbox" id="other"> Autre panne ou défaut</label>
-</div>
-<div class="fields" style="margin-top:18px">
-<div class="field"><label for="icloud">Compte Apple / Google</label><select id="icloud"><option value="yes">Compte déconnecté</option><option value="no">Compte encore connecté / verrouillé</option><option value="unknown">Je ne sais pas</option></select></div>
-<div class="field"><label for="networkLock">Blocage ou blacklist IMEI</label><select id="networkLock"><option value="clear">Aucun problème connu</option><option value="blocked">Téléphone bloqué / IMEI blacklisté</option><option value="unknown">Je ne sais pas</option></select></div>
-</div>
-</div>
-
-<div class="step" data-step="3">
-<h3>Dernière vérification</h3>
-<div class="fields">
-<div class="field"><label for="name">Ton prénom (facultatif)</label><input id="name" maxlength="50" placeholder="Prénom"></div>
-<div class="field"><label for="email">Ton e-mail (facultatif)</label><input id="email" type="email" maxlength="100" placeholder="exemple@email.com"></div>
-</div>
-<p class="note">Vérifie tes réponses. Le prix est indicatif : le montant définitif dépendra de la vérification physique et des tarifs confirmés par TELEPHONE DETRA.</p>
-</div>
-
-<div class="step-buttons"><button class="btn secondary" id="prev" type="button">← Retour</button><button class="btn" id="next" type="button">Continuer →</button></div>
-</div>
-
-<div class="result" id="result">
-<div class="eyebrow">Récapitulatif de ta demande</div>
-<h2 id="resultTitle">Ton estimation</h2>
-<div class="price" id="price">À confirmer</div>
-<p id="priceNote" class="note"></p>
-<div class="summary" id="summary"></div>
-<button class="btn" id="copy" type="button">COPIER MON RÉCAPITULATIF</button>
-<a class="btn secondary" id="snap" href="https://www.snapchat.com/add/telephone_detra" target="_blank" rel="noopener">OUVRIR SNAPCHAT ↗</a>
-<p class="note">Fais une capture d'écran et envoie-la à @telephone_detra. Aucun envoi automatique n'est effectué par ce site.</p>
-<button class="btn secondary" id="restart" type="button">Recommencer</button>
-</div>
-</div>
-</section>
-</main>
-
-<footer><strong>TELEPHONE DETRA</strong><br>Le rachat nouvelle génération.<br>Estimation indicative, sous réserve de vérification du téléphone et confirmation du prix.<br><a href="https://www.snapchat.com/add/telephone_detra">Snapchat : @telephone_detra</a></footer>
-
+<div class="page active" id="page-accueil"><div class="hero"><div class="wrap heroGrid"><div><div class="eyebrow">Reprise · Réparation · Seconde vie</div><h1>Ton téléphone.<br><span>Notre prochain projet.</span></h1><p>Écran fissuré, batterie fatiguée ou smartphone en bon état : décris-le, estime notre prix de rachat et donne-lui une seconde vie.</p><div class="actions"><button class="primary" data-page="estimation">Calculer mon prix de rachat →</button><button class="secondary" data-page="fonctionnement">Notre méthode</button></div><p class="small">Estimation indicative, confirmée après inspection physique.</p></div><div class="visual"><div class="phone">D</div><div class="tag">Une reprise réfléchie<b>Prix transparent selon l'état</b></div></div></div></div><div class="wrap"><div class="stats"><div class="stat"><strong>♻️ Seconde vie</strong><span>Réparer si c'est rentable</span></div><div class="stat"><strong>🔍 Transparent</strong><span>État et défauts pris en compte</span></div><div class="stat"><strong>📱 Simple</strong><span>Une estimation en quelques étapes</span></div></div><section class="content"><div class="heading"><div class="eyebrow">Une reprise plus claire</div><h2>Chaque téléphone a son scénario</h2><p>Un appareil fonctionnel peut être revendu après contrôle. Un appareil cassé est évalué selon son prix de revente possible, les pièces, la réparation, les frais et la marge nécessaire.</p></div><div class="grid3"><article class="card"><div class="icon">✨</div><h3>Bon état</h3><p>Contrôle, nettoyage et revente si le prix d'achat laisse une marge suffisante.</p></article><article class="card"><div class="icon">🛠️</div><h3>À réparer</h3><p>Le coût des pièces et de la main-d'œuvre est déduit avant de proposer un prix.</p></article><article class="card"><div class="icon">⚠️</div><h3>Très endommagé</h3><p>Prix adapté aux pièces récupérables ou refus si le risque est trop élevé.</p></article></div></section></div></div>
+<div class="page" id="page-estimation"><section class="content wrap"><div class="heading"><div class="eyebrow">Calculateur de reprise</div><h2>Combien pouvons-nous te proposer ?</h2><p>Le calcul part d'une valeur de revente de référence, puis déduit les réparations, les frais et ta marge cible.</p></div><div class="box"><div class="formgrid"><div class="field"><label for="brand">Marque</label><select id="brand"><option>Apple</option><option>Samsung</option><option>Google</option><option>Xiaomi</option><option>Huawei</option></select></div><div class="field"><label for="model">Modèle</label><select id="model"></select></div><div class="field"><label for="storage">Stockage</label><select id="storage"></select></div><div class="field"><label for="condition">État général</label><select id="condition"><option value="1">Très bon état, fonctionnel</option><option value=".88">Bon état, petites traces</option><option value=".72">État moyen, usure visible</option><option value=".52">Cassé / fortement abîmé</option><option value=".32">Très cassé / plusieurs défauts</option><option value=".18">Ne s'allume plus</option></select></div><div class="field"><label for="fault">Défaut principal</label><select id="fault"><option value="0">Aucun défaut majeur</option><option value="25">Batterie à remplacer</option><option value="45">Écran fissuré</option><option value="75">Écran cassé + tactile HS</option><option value="35">Dos ou châssis cassé</option><option value="55">Caméra / connectique / autre panne</option><option value="100">Plusieurs pannes importantes</option><option value="120">Ne s'allume plus (diagnostic incertain)</option></select></div><div class="field"><label for="storageExtra">État batterie (si connu)</label><select id="storageExtra"><option value="0">Inconnu / correct</option><option value="12">Moins de 80 %</option><option value="7">80–84 %</option><option value="0">85 % ou plus</option></select></div><div class="field"><label for="repair">Réparation estimée (€)</label><input id="repair" type="number" min="0" max="1500" value="0"></div><div class="field"><label for="fees">Frais divers (€)</label><input id="fees" type="number" min="0" max="500" value="10"></div><div class="field"><label for="margin">Marge cible (€)</label><input id="margin" type="number" min="0" max="1000" value="45"></div><div class="field"><label for="locked">Compte iCloud / Google</label><select id="locked"><option value="no">Déconnecté / déverrouillé</option><option value="yes">Encore connecté / verrouillé</option><option value="unknown">Je ne sais pas</option></select></div><div class="field"><label for="imei">Statut IMEI</label><select id="imei"><option value="clear">Pas de blocage connu</option><option value="blocked">Blacklisté / bloqué</option><option value="unknown">Inconnu</option></select></div></div><div class="notice">Important : les valeurs du catalogue sont des repères de départ et ne sont pas des cotations live de Back Market. Vérifie le prix actuel pour le même modèle, stockage et état avant de faire une offre réelle.</div><div class="formActions"><button class="primary" id="calculate">Calculer le prix plafond</button><button class="secondary" id="reset">Réinitialiser</button></div><div id="output" class="hidden"><h3>Résultat indicatif</h3><div class="results"><div class="metric"><span>Prix de revente cible (estimation)</span><strong id="resale">—</strong></div><div class="metric"><span>Réparation + frais + marge</span><strong id="deductions">—</strong></div><div class="metric"><span>Prix plafond de rachat</span><strong id="offer">—</strong></div></div><p id="explain"></p><p class="small">La marge affichée est avant impôts et frais non renseignés. Confirme toujours l'état, le stockage, le verrouillage et l'IMEI avant achat.</p><button class="secondary" id="copy">Copier le résumé</button> <span id="copied" class="small"></span></div></div></section></div>
+<div class="page" id="page-fonctionnement"><section class="content wrap"><div class="heading"><div class="eyebrow">La méthode DETRA</div><h2>Comment fonctionne la reprise ?</h2><p>Un prix de rachat doit rester intéressant pour le vendeur tout en laissant une marge réaliste à la revente.</p></div><div class="grid3"><article class="card"><div class="icon">01</div><h3>Décrire l'appareil</h3><p>Modèle, stockage, état, batterie et défauts. Des réponses précises donnent une estimation plus utile.</p></article><article class="card"><div class="icon">02</div><h3>Calculer les coûts</h3><p>Prix de revente cible moins réparation, frais et marge minimale : c'est le prix plafond de rachat.</p></article><article class="card"><div class="icon">03</div><h3>Vérifier avant achat</h3><p>Tester l'appareil et vérifier le compte, l'IMEI et l'origine avant de confirmer le prix.</p></article></div><div class="notice">Un téléphone verrouillé, blacklisté, déclaré volé ou d'origine douteuse ne doit pas être acheté sans résolution vérifiable de la situation.</div><button class="primary" data-page="estimation">Faire une estimation →</button></section></div>
+<div class="page" id="page-catalogue"><section class="content wrap"><div class="heading"><div class="eyebrow">Catalogue de référence</div><h2>Modèles et valeurs de travail</h2><p>Valeurs indicatives de revente d'un appareil fonctionnel en bon état. Ce ne sont ni des prix garantis ni des prix de rachat. Les capacités et l'état réel font varier le marché.</p></div><div class="notice">Pour rapprocher le prix de vente de Back Market, vérifie le prix affiché pour le même stockage, grade et garantie, puis positionne ton prix de vente environ 10–20 € en dessous si tes coûts le permettent. Actualise régulièrement ce tableau.</div><div class="tablewrap"><table><thead><tr><th>Modèle</th><th>Revente de référence</th><th>Logique de rachat</th></tr></thead><tbody id="catalogTable"></tbody></table></div><p class="small">La valeur de revente doit être vérifiée en direct avant utilisation commerciale. Un prix de reprise se calcule séparément selon les coûts et la marge.</p><button class="primary" data-page="estimation">Calculer un prix de rachat →</button></section></div>
+<div class="page" id="page-faq"><section class="content wrap"><div class="heading"><div class="eyebrow">Questions fréquentes</div><h2>Les réponses utiles</h2></div><div class="faq"><details><summary>Pourquoi le prix d'un téléphone cassé est-il bas ?</summary><p>Il faut tenir compte des pièces, de la main-d'œuvre, du risque de panne cachée, des frais et de la marge nécessaire.</p></details><details><summary>Le prix affiché est-il garanti ?</summary><p>Non. C'est une estimation de travail. Le prix définitif est confirmé après inspection et vérification du marché.</p></details><details><summary>Comment choisir un prix de vente face à Back Market ?</summary><p>Compare le même modèle, stockage, état et niveau de garantie. Une remise de 10 à 20 € peut être attractive si elle reste rentable.</p></details><details><summary>Rachetez-vous un téléphone verrouillé ou blacklisté ?</summary><p>Pas sur la base d'une estimation automatique. Le compte et l'IMEI doivent être vérifiés et la situation résolue avant tout achat.</p></details><details><summary>Comment rendre les tarifs fiables ?</summary><p>Actualiser les prix de revente, obtenir des devis de réparation, inclure les frais de vente et tester les calculs sur des transactions réelles.</p></details></div></section></div>
+</main><footer><div class="wrap foot"><div><strong>TELEPHONE DETRA</strong><br>Donner une seconde vie aux smartphones.</div><div>Estimation indicative · Prix final après inspection<br><button data-page="estimation" class="secondary">Estimer un appareil</button></div></div></footer>
 <script>
 const catalog={
-Apple:{
-"iPhone 11":{base:100,storage:["64 Go","128 Go","256 Go"]},
-"iPhone 12":{base:140,storage:["64 Go","128 Go","256 Go"]},
-"iPhone 13":{base:190,storage:["128 Go","256 Go","512 Go"]},
-"iPhone 14":{base:230,storage:["128 Go","256 Go","512 Go"]},
-"iPhone 15":{base:320,storage:["128 Go","256 Go","512 Go"]},
-"iPhone 16":{base:430,storage:["128 Go","256 Go","512 Go"]}
-},
-Samsung:{
-"Galaxy S22":{base:160,storage:["128 Go","256 Go"]},
-"Galaxy S23":{base:230,storage:["128 Go","256 Go","512 Go"]},
-"Galaxy S24":{base:320,storage:["128 Go","256 Go","512 Go"]},
-"Galaxy A54":{base:100,storage:["128 Go","256 Go"]}
-},
-Google:{
-"Pixel 7":{base:130,storage:["128 Go","256 Go"]},
-"Pixel 8":{base:210,storage:["128 Go","256 Go"]},
-"Pixel 9":{base:330,storage:["128 Go","256 Go","512 Go"]}
-},
-Xiaomi:{
-"Redmi Note 12":{base:65,storage:["128 Go","256 Go"]},
-"Redmi Note 13":{base:85,storage:["128 Go","256 Go"]},
-"Xiaomi 13":{base:190,storage:["256 Go","512 Go"]},
-"Xiaomi 14":{base:300,storage:["256 Go","512 Go"]}
-},
-Huawei:{
-"P30":{base:70,storage:["128 Go","256 Go"]},
-"P40":{base:100,storage:["128 Go","256 Go"]},
-"P50 Pro":{base:180,storage:["256 Go","512 Go"]}
-}};
-const $=id=>document.getElementById(id);
-let current=0;
-const names=["Ton appareil","État du téléphone","Fonctionnalités","Récapitulatif"];
-function fillModels(){
-const brand=$("brand").value, model=$("model"), old=model.value;
-model.innerHTML="";
-Object.keys(catalog[brand]).forEach(m=>model.add(new Option(m,m)));
-if(catalog[brand][old])model.value=old;
-fillStorage();
-}
-function fillStorage(){
-const entry=catalog[$("brand").value][$("model").value];
-$("storage").innerHTML="";
-entry.storage.forEach(s=>$("storage").add(new Option(s,s)));
-}
-$("brand").addEventListener("change",fillModels);
-$("model").addEventListener("change",fillStorage);
-function showStep(n){
-current=n;
-document.querySelectorAll(".step").forEach((el,i)=>el.classList.toggle("active",i===n));
-$("stepLabel").textContent="Étape "+(n+1)+" sur 4";
-$("stepName").textContent=names[n];
-$("progressBar").style.width=((n+1)/4*100)+"%";
-$("prev").style.visibility=n===0?"hidden":"visible";
-$("next").textContent=n===3?"Calculer mon estimation →":"Continuer →";
-}
-$("prev").onclick=()=>{if(current>0)showStep(current-1)};
-$("next").onclick=()=>{
-if(current<3){showStep(current+1);return}
-calculate();
+Apple:{"iPhone 8":{price:65,storage:["64 Go","128 Go","256 Go"]},"iPhone X":{price:85,storage:["64 Go","256 Go"]},"iPhone XR":{price:105,storage:["64 Go","128 Go","256 Go"]},"iPhone XS":{price:105,storage:["64 Go","256 Go"]},"iPhone 11":{price:155,storage:["64 Go","128 Go","256 Go"]},"iPhone 11 Pro":{price:190,storage:["64 Go","256 Go","512 Go"]},"iPhone 11 Pro Max":{price:220,storage:["64 Go","256 Go","512 Go"]},"iPhone 12 mini":{price:150,storage:["64 Go","128 Go","256 Go"]},"iPhone 12":{price:185,storage:["64 Go","128 Go","256 Go"]},"iPhone 12 Pro":{price:230,storage:["128 Go","256 Go","512 Go"]},"iPhone 12 Pro Max":{price:260,storage:["128 Go","256 Go","512 Go"]},"iPhone 13 mini":{price:210,storage:["128 Go","256 Go","512 Go"]},"iPhone 13":{price:260,storage:["128 Go","256 Go","512 Go"]},"iPhone 13 Pro":{price:330,storage:["128 Go","256 Go","512 Go","1 To"]},"iPhone 13 Pro Max":{price:370,storage:["128 Go","256 Go","512 Go","1 To"]},"iPhone 14":{price:330,storage:["128 Go","256 Go","512 Go"]},"iPhone 14 Pro":{price:430,storage:["128 Go","256 Go","512 Go","1 To"]},"iPhone 14 Pro Max":{price:490,storage:["128 Go","256 Go","512 Go","1 To"]},"iPhone 15":{price:440,storage:["128 Go","256 Go","512 Go"]},"iPhone 15 Pro":{price:570,storage:["128 Go","256 Go","512 Go","1 To"]},"iPhone 15 Pro Max":{price:650,storage:["256 Go","512 Go","1 To"]},"iPhone 16":{price:560,storage:["128 Go","256 Go","512 Go"]},"iPhone 16 Pro":{price:730,storage:["128 Go","256 Go","512 Go","1 To"]},"iPhone 16 Pro Max":{price:850,storage:["256 Go","512 Go","1 To"]}},
+Samsung:{"Galaxy A14":{price:75,storage:["64 Go","128 Go"]},"Galaxy A15":{price:95,storage:["128 Go","256 Go"]},"Galaxy A54":{price:150,storage:["128 Go","256 Go"]},"Galaxy A55":{price:190,storage:["128 Go","256 Go"]},"Galaxy S21":{price:150,storage:["128 Go","256 Go"]},"Galaxy S21 FE":{price:160,storage:["128 Go","256 Go"]},"Galaxy S22":{price:220,storage:["128 Go","256 Go"]},"Galaxy S22 Ultra":{price:310,storage:["128 Go","256 Go","512 Go"]},"Galaxy S23":{price:310,storage:["128 Go","256 Go","512 Go"]},"Galaxy S23 Ultra":{price:450,storage:["256 Go","512 Go","1 To"]},"Galaxy S24":{price:420,storage:["128 Go","256 Go","512 Go"]},"Galaxy S24 Ultra":{price:600,storage:["256 Go","512 Go","1 To"]},"Galaxy S25":{price:600,storage:["128 Go","256 Go","512 Go"]}},
+Google:{"Pixel 6":{price:130,storage:["128 Go","256 Go"]},"Pixel 7":{price:180,storage:["128 Go","256 Go"]},"Pixel 7 Pro":{price:230,storage:["128 Go","256 Go","512 Go"]},"Pixel 8":{price:280,storage:["128 Go","256 Go"]},"Pixel 8 Pro":{price:370,storage:["128 Go","256 Go","512 Go"]},"Pixel 9":{price:410,storage:["128 Go","256 Go"]}},
+Xiaomi:{"Redmi Note 12":{price:100,storage:["128 Go","256 Go"]},"Redmi Note 13":{price:130,storage:["128 Go","256 Go"]},"Redmi Note 13 Pro":{price:190,storage:["256 Go","512 Go"]},"Xiaomi 12":{price:190,storage:["128 Go","256 Go"]},"Xiaomi 13":{price:270,storage:["256 Go","512 Go"]},"Xiaomi 13T":{price:230,storage:["256 Go"]},"Xiaomi 14":{price:390,storage:["256 Go","512 Go"]}},
+Huawei:{"P30":{price:85,storage:["128 Go","256 Go"]},"P30 Pro":{price:120,storage:["128 Go","256 Go","512 Go"]},"P40":{price:110,storage:["128 Go","256 Go"]},"P50 Pro":{price:200,storage:["256 Go","512 Go"]}}
 };
-function checked(id){return $(id).checked}
-function calculate(){
-const brand=$("brand").value,model=$("model").value;
-const item=catalog[brand][model];
-let base=item.base;
-const storage=$("storage").value;
-if(storage==="256 Go")base*=1.10;
-if(storage==="512 Go")base*=1.20;
-if(storage==="1 To")base*=1.30;
-let estimate=base*Number($("condition").value);
-estimate+=base*Number($("screen").value);
-estimate+=base*Number($("back").value);
-const battery=Number($("battery").value);
-if(battery>0&&battery<100)estimate-=base*Math.max(0,85-battery)*.004;
-const defects=[["camera",.20],["face",.20],["sound",.12],["charge",.15],["network",.30],["water",.45],["repair",.08],["other",.12]];
-defects.forEach(([id,penalty])=>{if(checked(id))estimate-=base*penalty});
-const locked=$("icloud").value!=="yes";
-const blocked=$("networkLock").value==="blocked";
-const unknown=$("networkLock").value==="unknown"||$("icloud").value==="unknown";
-let low,high,priceText,note;
-if(locked||blocked||unknown){
-priceText="À confirmer";
-note="Une vérification manuelle est nécessaire. Aucune offre automatique n'est proposée pour un téléphone potentiellement verrouillé ou bloqué.";
-}else{
-estimate=Math.max(0,estimate);
-low=Math.max(0,Math.floor(estimate*.90/5)*5);
-high=Math.max(low,Math.ceil(estimate*1.10/5)*5);
-priceText=low+" € – "+high+" €";
-note="Estimation de démonstration calculée à partir de tarifs indicatifs intégrés au prototype. Ce n'est pas une offre ferme.";
-}
-const lines=[
-"TELEPHONE DETRA — RÉCAPITULATIF",
-"Appareil : "+brand+" "+model,
-"Stockage : "+storage,
-"Couleur : "+$("color").value,
-"État : "+$("condition").selectedOptions[0].text,
-"Batterie : "+(battery?battery+"%":"Non renseignée"),
-"Écran : "+$("screen").selectedOptions[0].text,
-"Dos / châssis : "+$("back").selectedOptions[0].text,
-"Compte Apple / Google : "+$("icloud").selectedOptions[0].text,
-"IMEI / blocage : "+$("networkLock").selectedOptions[0].text,
-"Autres défauts : "+(defects.filter(([id])=>checked(id)).map(([id])=>({camera:"Caméra",face:"Biométrie",sound:"Son / boutons / micro",charge:"Charge",network:"Réseau",water:"Liquide / oxydation",repair:"Réparation antérieure",other:"Autre panne"}[id])).join(", ")||"Aucun déclaré"),
-"Estimation : "+priceText,
-"Contact : Snapchat @telephone_detra",
-"Prix à confirmer après inspection physique."
-];
-$("resultTitle").textContent="Merci"+($("name").value.trim()?" "+$("name").value.trim():"")+" !";
-$("price").textContent=priceText;
-$("priceNote").textContent=note;
-$("summary").textContent=lines.join("\n");
-$("formArea").style.display="none";
-$("result").style.display="block";
-}
-$("copy").onclick=async()=>{
-const text=$("summary").textContent;
-try{await navigator.clipboard.writeText(text);$("copy").textContent="RÉCAPITULATIF COPIÉ ✓"}
-catch(e){const ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();$("copy").textContent="RÉCAPITULATIF COPIÉ ✓"}
-};
-$("restart").onclick=()=>{
-$("result").style.display="none";
-$("formArea").style.display="block";
-document.querySelectorAll("#formArea input[type=checkbox]").forEach(el=>el.checked=false);
-$("battery").value="";
-$("name").value="";
-$("email").value="";
-showStep(0);
-};
-fillModels();
-showStep(0);
-</script>
-</body>
-</html>
+const euro=n=>Math.max(0,Math.round(n)).toLocaleString("fr-FR")+" €";
+function page(id){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id==="page-"+id));document.querySelectorAll("[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===id));history.replaceState(null,"","#"+id);window.scrollTo({top:0,behavior:"smooth"})}
+document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>page(b.dataset.page)));
+function fillModels(){const brand=document.getElementById("brand").value,model=document.getElementById("model");model.innerHTML="";Object.keys(catalog[brand]).forEach(m=>model.add(new Option(m,m)));fillStorage()}
+function fillStorage(){const entry=catalog[document.getElementById("brand").value][document.getElementById("model").value],s=document.getElementById("storage");s.innerHTML="";entry.storage.forEach(x=>s.add(new Option(x,x)))}
+document.getElementById("brand").addEventListener("change",fillModels);document.getElementById("model").addEventListener("change",fillStorage);
+document.getElementById("calculate").addEventListener("click",()=>{
+const brand=document.getElementById("brand").value,model=document.getElementById("model").value,item=catalog[brand][model],storage=document.getElementById("storage").value;
+let resale=item.price;if(storage==="256 Go")resale*=1.07;if(storage==="512 Go")resale*=1.14;if(storage==="1 To")resale*=1.22;
+resale*=Number(document.getElementById("condition").value);resale=Math.max(0,resale-Number(document.getElementById("fault").value)-Number(document.getElementById("storageExtra").value));
+const repair=Math.max(0,Number(document.getElementById("repair").value)||0),fees=Math.max(0,Number(document.getElementById("fees").value)||0),margin=Math.max(0,Number(document.getElementById("margin").value)||0);
+const locked=document.getElementById("locked").value,imei=document.getElementById("imei").value,blocked=locked!=="no"||imei!=="clear",maxBuy=Math.max(0,resale-repair-fees-margin);
+document.getElementById("resale").textContent=euro(resale);document.getElementById("deductions").textContent=euro(repair+fees+margin);document.getElementById("offer").textContent=blocked?"À VÉRIFIER":euro(maxBuy);
+document.getElementById("explain").textContent=blocked?"Pas de prix automatique : vérifie le compte et l'IMEI avant toute décision d'achat.":"Calcul : revente estimée ("+euro(resale)+") − réparation ("+euro(repair)+") − frais ("+euro(fees)+") − marge cible ("+euro(margin)+") = prix plafond de rachat "+euro(maxBuy)+". Ajuste la revente à partir d'annonces comparables réellement disponibles.";
+document.getElementById("output").classList.remove("hidden");document.getElementById("copied").textContent="";
+});
+document.getElementById("reset").addEventListener("click",()=>{document.getElementById("condition").value="1";document.getElementById("fault").value="0";document.getElementById("storageExtra").value="0";document.getElementById("repair").value="0";document.getElementById("fees").value="10";document.getElementById("margin").value="45";document.getElementById("locked").value="no";document.getElementById("imei").value="clear";document.getElementById("output").classList.add("hidden")});
+document.getElementById("copy").addEventListener("click",async()=>{const text="TELEPHONE DETRA — "+document.getElementById("brand").value+" "+document.getElementById("model").value+" "+document.getElementById("storage").value+"\nRevente estimée: "+document.getElementById("resale").textContent+"\nRéparation, frais et marge: "+document.getElementById("deductions").textContent+"\nPrix plafond de rachat: "+document.getElementById("offer").textContent+"\nEstimation indicative à confirmer après inspection.";try{await navigator.clipboard.writeText(text);document.getElementById("copied").textContent="Résumé copié ✓"}catch(e){document.getElementById("copied").textContent=text}});
+document.getElementById("catalogTable").innerHTML=Object.entries(catalog).flatMap(([b,models])=>Object.entries(models).map(([m,v])=>"<tr><td>"+b+" "+m+"</td><td><strong>"+euro(v.price)+"</strong></td><td>Revente indicative; déduire frais, réparation et marge</td></tr>")).join("");
+fillModels();const initial=location.hash.replace("#","");if(["accueil","estimation","fonctionnement","catalogue","faq"].includes(initial))page(initial);
+</script></body></html>
