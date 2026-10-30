@@ -127,17 +127,30 @@ function phoneCard(){return '<div class="device-card"><div class="device-illustr
 function resultPrices(){
  const m=modelInfo(),cap=state.capacity||m[1][0];
  const storage=cap.includes("1 To")?1.18:cap.includes("512")?1.10:cap.includes("256")?1.05:cap.includes("128")?1:cap.includes("64")?.90:1;
+ // Référence catalogue = estimation de revente; décote prudente car ce n'est pas un flux de prix en direct.
  const marketReference=Math.max(0,(Number(m[3])||70)*storage);
- const grades={"Neuf scellé":1.04,"Comme neuf":1,"Excellent état":.96,"Très bon état":.90,"Bon état":.80,"État correct":.65,"Mauvais état":.42,"Hors service":.10};
- const batteries={"95–100 %":1,"90–94 %":.98,"85–89 %":.94,"80–84 %":.90,"70–79 %":.83,"60–69 %":.74,"50–59 %":.62,"Moins de 50 %":.45,"Inconnue / non vérifiée":.88};
- const backs={"Intact":1,"Rayures":.96,"Dos cassé":.68,"Châssis tordu / gros choc":.40};
- const funcs={"Fonctionnelles":1,"Fonctionnels":1,"Défaut mineur":.75,"Défectueuses":.35};
- const adjusted=marketReference*(grades[state.condition]||.80)*(batteries[state.battery]||.88)*(backs[state.back]||1)*(funcs[state.camera]||1)*(funcs[state.other]||1);
- const repairCosts={"iPhone 16 Pro Max":489,"iPhone 16 Pro":405,"iPhone 16 Plus":405,"iPhone 16":339,"iPhone 15 Pro Max":489,"iPhone 15 Pro":405,"iPhone 15":339,"iPhone 14 Pro Max":489,"iPhone 14 Pro":405};
- const screenRepair=(state.screen==="Écran cassé mais fonctionnel"||state.screen==="Écran cassé et inutilisable")?(repairCosts[state.model]||Math.round(marketReference*.30)):0;
- const netAfterRepair=Math.max(0,adjusted-screenRepair);
- const buy=Math.max(0,Math.round((netAfterRepair*.62)/5)*5);
- return {buy,referenceValue:marketReference,adjustedValue:adjusted,screenRepair,netAfterRepair};
+ const grades={"Neuf scellé":1.02,"Comme neuf":1,"Excellent état":.96,"Très bon état":.91,"Bon état":.82,"État correct":.68,"Mauvais état":.48,"Hors service":.12};
+ const batteries={"95–100 %":1,"90–94 %":.98,"85–89 %":.95,"80–84 %":.91,"70–79 %":.82,"60–69 %":.70,"50–59 %":.58,"Moins de 50 %":.42,"Inconnue / non vérifiée":.85};
+ const backs={"Intact":1,"Rayures":.98,"Dos cassé":.62,"Châssis tordu / gros choc":.35};
+ const funcs={"Fonctionnelles":1,"Fonctionnels":1,"Défaut mineur":.70,"Défectueuses":.30};
+ const adjusted=marketReference*.90*(grades[state.condition]||.80)*(batteries[state.battery]||.85)*(backs[state.back]||1)*(funcs[state.camera]||1)*(funcs[state.other]||1);
+ const repairCosts={"iPhone 16 Pro Max":489,"iPhone 16 Pro":405,"iPhone 16 Plus":405,"iPhone 16":339,"iPhone 15 Pro Max":489,"iPhone 15 Pro":405,"iPhone 15":339,"iPhone 14 Pro Max":489,"iPhone 14 Pro":405,"iPhone 14":339};
+ const screenBroken=state.screen==="Écran cassé mais fonctionnel"||state.screen==="Écran cassé et inutilisable";
+ const screenRepair=screenBroken?(repairCosts[state.model]||Math.round(marketReference*.35)):0;
+ const backRepair=state.back==="Dos cassé"?(state.model.includes("Pro Max")?244:Math.round(marketReference*.22)):0;
+ const batteryRepair=["70–79 %","60–69 %","50–59 %","Moins de 50 %"].includes(state.battery)?135:0;
+ const repairTotal=screenRepair+backRepair+batteryRepair;
+ // Marge cible minimale de 100 € ou 25 % de la revente estimée, plus 35 € de frais/risque.
+ const targetMargin=Math.max(100,adjusted*.25);
+ const costs=35;
+ const netAfterRepair=Math.max(0,adjusted-repairTotal);
+ let buy=Math.max(0,netAfterRepair-targetMargin-costs);
+ // Téléphone hors service / fonctions essentielles défectueuses : valeur pièces uniquement, très prudente.
+ if(state.condition==="Hors service"||state.camera==="Défectueuses"||state.other==="Défectueuses")buy=Math.min(buy,Math.round(marketReference*.08));
+ // Un compte verrouillé ne peut pas être repris tant qu'il n'est pas retiré.
+ if(state.account&&/verrouill|bloqu/i.test(state.account))buy=0;
+ buy=Math.max(0,Math.floor(buy/5)*5);
+ return {buy,referenceValue:marketReference,adjustedValue:adjusted,screenRepair,backRepair,batteryRepair,repairTotal,targetMargin,costs,netAfterRepair};
 }
 function cdiscountSearchUrl(){return "https://www.cdiscount.com/search/10/"+encodeURIComponent([state.brand,state.model,state.capacity,"neuf"].filter(Boolean).join(" ")).replace(/%20/g,"+")+".html"}
 function render(){const savedScrollY=window.scrollY;renderBar();const step=state.step;let html='<div class="step-title"><span class="step-number">'+(step+1)+'</span><span>'+steps[step][1]+'</span></div><p class="muted">'+(step===0?'Sélectionnez la marque de votre appareil.':step===1?'Choisissez le modèle exact.':step===2?'La capacité influence le prix de reprise.':step===3?'La couleur peut légèrement influencer la demande.':step===4?'Choisissez l’état esthétique général.':step===5?'Indiquez l’autonomie estimée de la batterie.':step===6?'La casse de l’écran est évaluée séparément de l’état général.':step===7?'Précisez l’état du dos et du châssis.':step===8?'Indiquez si les caméras et les fonctions principales marchent.':'Vérifiez les informations et consultez les montants indicatifs.')+'</p>';
