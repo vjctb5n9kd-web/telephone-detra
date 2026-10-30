@@ -84,7 +84,7 @@ const catalog={
 "Autres":[["Autre modèle",["64 Go","128 Go","256 Go","512 Go","1 To"],["Noir","Blanc","Autre"],70]]
 };
 const steps=[["Marque","Choisissez la marque de votre téléphone"],["Modèle","Choisissez le modèle"],["Capacité","Choisissez la capacité de stockage"],["Couleur","Choisissez la couleur"],["État général","Quel est l’état général ?"],["Batterie","Quel est l’état de la batterie ?"],["Écran","Quel est l’état de l’écran ?"],["Dos & châssis","Quel est l’état du dos et du châssis ?"],["Caméras","Les caméras fonctionnent-elles ?"],["Récapitulatif","Votre estimation indicative"]];
-const state={step:0,brand:"",model:"",capacity:"",color:"",condition:"Très bon état",battery:"> 85 %",screen:"Intact",back:"Intact",camera:"Fonctionnelles",other:"Fonctionnels",account:"Déconnecté",imei:"Oui",query:""};
+const state={step:0,brand:"",model:"",capacity:"",color:"",condition:"",battery:"",screen:"",back:"",camera:"",other:"",account:"Déconnecté",imei:"Oui",query:""};
 const brands=[["Apple",""],["Samsung","S"],["Xiaomi","mi"],["Google","G"],["Huawei","H"],["Oppo","O"],["OnePlus","1+"],["Motorola","M"],["Sony","SONY"],["Autres","•••"]];
 const conditions=[["Comme neuf","Aucune trace d’usure visible",1],["Très bon état","Micro-rayures très discrètes",.91],["Bon état","Traces d’usage légères",.79],["État correct","Rayures et petits chocs",.64],["Mauvais état","Chocs marqués, usure importante",.43],["Hors service","Ne s’allume pas ou ne fonctionne pas",.15]];
 const batteryOptions=[["> 85 %","Bonne autonomie",1],["70–85 %","Usure modérée",.91],["50–69 %","Autonomie réduite",.76],["Moins de 50 %","Remplacement probablement nécessaire",.55]];
